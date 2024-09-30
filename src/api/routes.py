@@ -7,6 +7,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from werkzeug.security import generate_password_hash
 from flask_jwt_extended import JWTManager
 
 api = Blueprint('api', __name__)
@@ -24,20 +25,26 @@ def handle_hello():
 @api.route('/signup', methods=['POST'])
 def handle_user():
     data = request.data
+    print("Datos recibidos:", data)
     data = json.loads(data)
 
-    user = User(email = data['email'], password = data['password'], is_active=True)
+    if 'email' not in data or 'password' not in data:
+        return jsonify({"error": "Email and password are required."}), 400
 
+    existing_user = User.query.filter_by(email=data['email']).first()
+    if existing_user:
+        return jsonify({"error": "User already exists."}), 400
+
+    user = User(email=data['email'], password=data['password'], is_active=True)
     db.session.add(user)
     db.session.commit()
 
     response_body = {
         "email": data['email'],
-        "password": data['password'],
         "ok": "true"
     }
 
-    return jsonify(response_body), 200
+    return jsonify(response_body), 201
 
 
 @api.route('/login', methods=['POST'])

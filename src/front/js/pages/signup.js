@@ -26,10 +26,15 @@ export const Signup = () => {
             redirect: 'follow'
         };
 
-        fetch(`${BACKEND_URL}/api/signup`, requestOptions)
-            .then(response => response.json())
+        fetch("https://psychic-cod-69v77pw7pvp53rw4p-3001.app.github.dev/api/signup", requestOptions)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error! status: ' + response.status);
+                }
+                return response.json();
+            })
             .then(result => {
-                if(result.email) {
+                if (result.email) {
                     navigate("/");
                 } else {
                     setError('El usuario ya existe');
@@ -73,3 +78,4 @@ export const Signup = () => {
         </div>
     );
 };
+

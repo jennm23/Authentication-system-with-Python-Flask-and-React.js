@@ -29,7 +29,7 @@ export const Home = () => {
 			redirect: 'follow'
 		};
 
-		fetch("https://3001-4geeksacade-reactflaskh-ea2apv1hwm8.ws-eu79.gitpod.io/api/login", requestOptions)
+		fetch("https://psychic-cod-69v77pw7pvp53rw4p-3001.app.github.dev/api/login", requestOptions)
 		.then(response => response.json())
 		.then(result => {
 			if(result.token) {
@@ -42,22 +42,38 @@ export const Home = () => {
 		
 		.catch(error => console.log('error', error));}
 
-	return (
-		<div className="text-center mt-5">
-			<h1>LOGIN</h1>			
-			<p>
-				<label className="form-label">Email:</label>
-				<input className="form-control" onChange={(event)=> setEmail(event.target.value)}></input>
-			</p>
-			<p>
-				<label className="form-label">Password:</label>
-				<input className="form-control" onChange={(event)=> setPassword(event.target.value)}></input>
-			</p>
-			<button type="button" className="btn btn-outline-primary m-3" onClick={login}>Login</button>
-			<button type="button" className="btn btn-outline-primary m-3"><Link to={"/signup"}>Signup</Link></button>
-			{error && <div className="alert alert-danger" role="alert">
-				{error}
+		return (
+			<div className="text-center mt-5">
+				<h1>LOGIN</h1>            
+				<p>
+					<label className="form-label">Email:</label>
+					<input 
+						type="email"
+						className="form-control"
+						onChange={(event) => setEmail(event.target.value)}
+						required
+						placeholder="Introduce tu correo electrónico"
+					/>
+				</p>
+				<p>
+					<label className="form-label">Password:</label>
+					<input 
+						type="password"
+						className="form-control"
+						onChange={(event) => setPassword(event.target.value)}
+						required
+						placeholder="Introduce tu contraseña"
+					/>
+				</p>
+				<button type="button" className="btn btn-outline-primary m-3" onClick={login} disabled={loading}>
+					{loading ? 'Cargando...' : 'Login'}
+				</button>
+				<button type="button" className="btn btn-outline-primary m-3">
+					<Link to={"/signup"}>Signup</Link>
+				</button>
+				{error && <div className="alert alert-danger" role="alert">
+					{error}
 				</div>}
-		</div>
-	);
-};
+			</div>
+		);
+	};
