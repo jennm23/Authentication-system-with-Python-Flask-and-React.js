@@ -26,7 +26,7 @@ export const Signup = () => {
             redirect: 'follow'
         };
 
-        fetch("https://psychic-cod-69v77pw7pvp53rw4p-3001.app.github.dev/api/signup", requestOptions)
+        fetch("https://upgraded-space-waddle-69v77pw7pwqvf4v7r-3001.app.github.dev/api/signup", requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('HTTP error! status: ' + response.status);

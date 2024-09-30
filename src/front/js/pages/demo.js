@@ -18,7 +18,7 @@ export const Demo = () => {
             };
 
             try {
-                const response = await fetch("https://psychic-cod-69v77pw7pvp53rw4p-3001.app.github.dev/api/private", requestOptions);
+                const response = await fetch("https://upgraded-space-waddle-69v77pw7pwqvf4v7r-3001.app.github.dev/api/private", requestOptions);
                 const result = await response.json();
 
                 if (!response.ok || result.error) {
